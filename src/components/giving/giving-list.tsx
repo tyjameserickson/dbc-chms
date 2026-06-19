@@ -107,7 +107,7 @@ export function GivingList({ transactions, funds }: Props) {
           <p className="text-sm text-slate-500">{localTransactions.length} transactions</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
+          <DialogTrigger>
             <Button size="sm" className="gap-2"><Plus className="w-4 h-4" /> Record Gift</Button>
           </DialogTrigger>
           <DialogContent className="max-w-md">

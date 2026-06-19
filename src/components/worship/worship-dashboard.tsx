@@ -183,7 +183,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
         <h2 className="text-xl font-semibold text-slate-900">Worship</h2>
         <div className="flex gap-2">
           <Dialog open={newSongOpen} onOpenChange={setNewSongOpen}>
-            <DialogTrigger asChild>
+            <DialogTrigger>
               <Button variant="outline" size="sm" className="gap-2"><Music className="w-4 h-4" /> Add Song</Button>
             </DialogTrigger>
             <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
@@ -232,7 +232,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
           </Dialog>
 
           <Dialog open={newServiceOpen} onOpenChange={setNewServiceOpen}>
-            <DialogTrigger asChild>
+            <DialogTrigger>
               <Button size="sm" className="gap-2"><Plus className="w-4 h-4" /> New Service</Button>
             </DialogTrigger>
             <DialogContent className="max-w-sm">
@@ -315,7 +315,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
                         <Printer className="w-3.5 h-3.5" /> Print
                       </Button>
                       <Dialog open={addItemOpen} onOpenChange={setAddItemOpen}>
-                        <DialogTrigger asChild>
+                        <DialogTrigger>
                           <Button size="sm" className="gap-1.5"><Plus className="w-3.5 h-3.5" /> Add Item</Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-sm">
