@@ -105,7 +105,7 @@ export function AttendanceView({ services: initialServices, people }: Props) {
               </div>
               <div className="space-y-1.5">
                 <Label>Type</Label>
-                <Select value={serviceForm.type} onValueChange={v => setServiceForm(f => ({ ...f, type: v }))}>
+                <Select value={serviceForm.type} onValueChange={v => setServiceForm(f => ({ ...f, type: v as 'sunday_am' | 'sunday_pm' | 'wednesday' | 'special' | 'other' }))}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="sunday_am">Sunday AM</SelectItem>

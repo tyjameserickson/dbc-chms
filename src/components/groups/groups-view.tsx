@@ -150,7 +150,7 @@ export function GroupsView({ groups: initial, people }: Props) {
               </div>
               <div className="space-y-1.5">
                 <Label>Type</Label>
-                <Select value={form.type} onValueChange={v => set('type', v)}>
+                <Select value={form.type} onValueChange={v => v && set('type', v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {Object.entries(GROUP_TYPES).map(([v, l]) => (
@@ -166,7 +166,7 @@ export function GroupsView({ groups: initial, people }: Props) {
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label>Meeting Day</Label>
-                  <Select value={form.meeting_day} onValueChange={v => set('meeting_day', v)}>
+                  <Select value={form.meeting_day} onValueChange={v => v && set('meeting_day', v)}>
                     <SelectTrigger><SelectValue placeholder="Select…" /></SelectTrigger>
                     <SelectContent>
                       {['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(d => (
@@ -253,7 +253,7 @@ export function GroupsView({ groups: initial, people }: Props) {
 
                       {addingTo === group.id ? (
                         <div className="flex gap-2">
-                          <Select value={selectedPerson} onValueChange={setSelectedPerson}>
+                          <Select value={selectedPerson} onValueChange={v => v && setSelectedPerson(v)}>
                             <SelectTrigger className="flex-1 h-8 text-sm"><SelectValue placeholder="Select person…" /></SelectTrigger>
                             <SelectContent>
                               {availablePeople.map(p => (

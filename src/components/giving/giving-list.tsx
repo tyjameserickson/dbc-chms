@@ -133,7 +133,7 @@ export function GivingList({ transactions, funds }: Props) {
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label>Fund *</Label>
-                  <Select value={form.fund_id} onValueChange={v => set('fund_id', v)}>
+                  <Select value={form.fund_id} onValueChange={v => v && set('fund_id', v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {funds.map(f => <SelectItem key={f.id} value={f.id}>{f.name}</SelectItem>)}
@@ -142,7 +142,7 @@ export function GivingList({ transactions, funds }: Props) {
                 </div>
                 <div className="space-y-1.5">
                   <Label>Method *</Label>
-                  <Select value={form.method} onValueChange={v => set('method', v)}>
+                  <Select value={form.method} onValueChange={v => v && set('method', v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {Object.entries(methodLabels).map(([v, l]) => <SelectItem key={v} value={v}>{l}</SelectItem>)}

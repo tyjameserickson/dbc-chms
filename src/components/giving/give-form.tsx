@@ -79,7 +79,7 @@ export function GiveForm({ funds }: Props) {
           {/* Fund */}
           <div className="space-y-1.5">
             <Label>Giving Fund</Label>
-            <Select value={fundId} onValueChange={setFundId}>
+            <Select value={fundId} onValueChange={v => v && setFundId(v)}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 {funds.map(f => (

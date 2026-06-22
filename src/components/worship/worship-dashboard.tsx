@@ -204,7 +204,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
                   </div>
                   <div className="space-y-1.5">
                     <Label>Default Key</Label>
-                    <Select value={songForm.default_key} onValueChange={v => setSongForm(f => ({ ...f, default_key: v }))}>
+                    <Select value={songForm.default_key} onValueChange={v => v && setSongForm(f => ({ ...f, default_key: v }))}>
                       <SelectTrigger><SelectValue placeholder="Select key" /></SelectTrigger>
                       <SelectContent>{KEYS.map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
                     </Select>
@@ -323,7 +323,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
                           <form onSubmit={addItem} className="space-y-4 mt-2">
                             <div className="space-y-1.5">
                               <Label>Type *</Label>
-                              <Select value={itemForm.type} onValueChange={v => {
+                              <Select value={itemForm.type} onValueChange={v => { if (!v) return;
                                 const song = songs.find(s => s.id === itemForm.song_id)
                                 setItemForm(f => ({ ...f, type: v, title: v === 'song' ? '' : v.charAt(0).toUpperCase() + v.slice(1), song_id: v !== 'song' ? '' : f.song_id }))
                               }}>
@@ -334,7 +334,7 @@ export function WorshipDashboard({ services: initialServices, songs: initialSong
                             {itemForm.type === 'song' ? (
                               <div className="space-y-1.5">
                                 <Label>Song *</Label>
-                                <Select value={itemForm.song_id} onValueChange={v => {
+                                <Select value={itemForm.song_id} onValueChange={v => { if (!v) return;
                                   const song = songs.find(s => s.id === v)
                                   setItemForm(f => ({ ...f, song_id: v, title: song?.title ?? '' }))
                                 }}>

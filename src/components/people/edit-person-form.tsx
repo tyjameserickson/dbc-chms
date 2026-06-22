@@ -101,7 +101,7 @@ export function EditPersonForm({ person }: Props) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label>Status</Label>
-                <Select value={form.status} onValueChange={v => set('status', v)}>
+                <Select value={form.status} onValueChange={v => v && set('status', v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="visitor">Visitor</SelectItem>
@@ -118,7 +118,7 @@ export function EditPersonForm({ person }: Props) {
               </div>
               <div className="space-y-1.5">
                 <Label>Gender</Label>
-                <Select value={form.gender} onValueChange={v => set('gender', v)}>
+                <Select value={form.gender} onValueChange={v => v && set('gender', v)}>
                   <SelectTrigger><SelectValue placeholder="Select…" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="male">Male</SelectItem>
