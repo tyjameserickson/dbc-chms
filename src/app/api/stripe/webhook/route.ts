@@ -2,15 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-
-// Service-role client to bypass RLS for webhook writes
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')!
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
@@ -21,7 +19,6 @@ export async function POST(req: NextRequest) {
     if (webhookSecret && webhookSecret !== 'whsec_...') {
       event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
     } else {
-      // Dev mode: skip signature verification
       event = JSON.parse(body) as Stripe.Event
     }
   } catch (err: any) {
@@ -32,34 +29,22 @@ export async function POST(req: NextRequest) {
     const pi = event.data.object as Stripe.PaymentIntent
     const { fund_id, fund_name, donor_name, donor_email, note } = pi.metadata
 
-    // Try to find an existing person by email
     let person_id: string | null = null
     if (donor_email) {
       const { data: person } = await supabase
-        .from('people')
-        .select('id')
-        .eq('email', donor_email)
-        .single()
+        .from('people').select('id').eq('email', donor_email).single()
       person_id = person?.id ?? null
     }
 
-    // Find the fund
     let resolvedFundId = fund_id
     if (!resolvedFundId && fund_name) {
       const { data: fund } = await supabase
-        .from('funds')
-        .select('id')
-        .ilike('name', fund_name)
-        .single()
+        .from('funds').select('id').ilike('name', fund_name).single()
       resolvedFundId = fund?.id
     }
     if (!resolvedFundId) {
       const { data: fund } = await supabase
-        .from('funds')
-        .select('id')
-        .order('created_at')
-        .limit(1)
-        .single()
+        .from('funds').select('id').order('created_at').limit(1).single()
       resolvedFundId = fund?.id
     }
 

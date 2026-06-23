@@ -19,6 +19,7 @@ const nav = [
   { href: '/events',         label: 'Events',         icon: Calendar },
   { href: '/communications', label: 'Communications', icon: MessageSquare },
   { href: '/reports',        label: 'Reports',        icon: BarChart2 },
+  { href: '/settings',       label: 'Settings',       icon: Settings },
 ]
 
 export function Sidebar() {
